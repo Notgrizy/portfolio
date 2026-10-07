@@ -590,6 +590,40 @@ code, .mono {
   box-shadow: 0 0 6px rgba(49, 168, 255, 0.9);
 }
 
+/* ---------- Copyright watermark ----------
+   Drawn by CSS from the --watermark-text custom property, which main.js
+   sets to "© <current year> Notgrizy". Keeps the thumbnails and the
+   footer on the same always-correct year with nothing hardcoded. */
+.thumb-card__media::after,
+.lightbox__frame::after {
+  content: var(--watermark-text, "");
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.5rem;
+  z-index: 2;
+  max-width: calc(100% - 1.1rem);
+  padding: 0.12rem 0.4rem;
+  border-radius: 5px;
+  background: rgba(2, 10, 13, 0.42);
+  backdrop-filter: blur(3px);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  color: rgba(228, 242, 245, 0.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  user-select: none;
+}
+.lightbox__frame::after {
+  right: 0.75rem;
+  bottom: 0.65rem;
+  font-size: 0.72rem;
+  background: rgba(2, 10, 13, 0.55);
+}
+
 /* Shown instead of the image when a file is missing */
 .thumb-card__missing {
   position: absolute;
@@ -789,6 +823,12 @@ code, .mono {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
+}
+/* Wrapper exists only so the watermark can sit on the image corner */
+.lightbox__frame {
+  position: relative;
+  display: block;
+  line-height: 0;
 }
 .lightbox__figure img {
   width: 100%;

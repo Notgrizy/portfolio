@@ -9,6 +9,12 @@
  * Existing titles are preserved, so you can rename a project title in the
  * generated file and re-run the scan without losing it.
  *
+ * NOTE: this script lists thumbnails, it does not process them. The image
+ * files themselves are never read, decoded, resized or rewritten — only their
+ * filenames are. The "© <year> Notgrizy" watermark on each thumbnail is drawn
+ * by CSS (assets/styles.css) and gets its year from assets/main.js, so it is
+ * never stamped into your original artwork.
+ *
  *   node tools/scan-thumbnails.mjs
  *   npm run scan
  */

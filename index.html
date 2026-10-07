@@ -178,8 +178,9 @@
       <span class="brand__name">Notgrizy</span>
     </a>
 
-    <!-- Center: Copyright -->
-    <p class="site-footer__center">&copy; 2026 Notgrizy. All rights reserved</p>
+    <!-- Center: Copyright. The year span is filled in by assets/main.js
+         (new Date().getFullYear()) so it is never hardcoded by hand. -->
+    <p class="site-footer__center">&copy; <span data-year></span> Notgrizy. All rights reserved</p>
 
     <!-- Right: Description -->
     <p class="site-footer__note">Minecraft Thumbnail Designer &middot; Crafted in Photoshop.</p>
@@ -190,7 +191,9 @@
 <div class="lightbox" id="lightbox" hidden>
   <button class="lightbox__close" type="button" aria-label="Close preview">&times;</button>
   <figure class="lightbox__figure">
-    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox__frame">
+      <img id="lightbox-img" src="" alt="">
+    </div>
     <figcaption id="lightbox-cap"></figcaption>
   </figure>
 </div>

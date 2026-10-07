@@ -190,6 +190,36 @@
      Reveal on scroll
   --------------------------------------------------------------- */
 
+  /* ---------------------------------------------------------------
+     Copyright year + watermark
+   --------------------------------------------------------------- */
+
+  var OWNER = 'Notgrizy';
+
+  /* 366 days - anything larger means the clock is wrong, not the page */
+  var MAX_ROLLOVER_DELAY = 366 * 24 * 60 * 60 * 1000;
+
+  /**
+   * One source of truth for the year, so the footer and the watermark on
+   * every thumbnail can never drift apart. Both read the same value.
+   */
+  function initCopyright() {
+    var year = String(new Date().getFullYear());
+
+    qsa('[data-year]').forEach(function (el) { el.textContent = year; });
+
+    // Read by .thumb-card__media::after and .lightbox__frame::after
+    document.documentElement.style.setProperty(
+      '--watermark-text', '"\u00a9 ' + year + ' ' + OWNER + '"'
+    );
+
+    // Keep a long-lived tab honest when it rolls over at midnight on 31 Dec.
+    var untilNewYear = new Date(+year + 1, 0, 1).getTime() - Date.now();
+    if (untilNewYear > 0 && untilNewYear < MAX_ROLLOVER_DELAY) {
+      setTimeout(initCopyright, untilNewYear + 1000);
+    }
+  }
+
   function initReveal() {
     var items = qsa('[data-reveal]');
     if (!('IntersectionObserver' in window)) {
@@ -331,6 +361,7 @@
   function boot() {
     var count = renderThumbnails();
     initCounters();
+    initCopyright();
     initReveal();
     initHeader();
     initCopy();
@@ -338,6 +369,7 @@
     syncCounts(count);
     console.info('[notgrizy] ' + count + ' thumbnail' + (count === 1 ? '' : 's') +
                  ' rendered' + (count === 0 ? ' — add images to /thumbnails and run `npm run scan`' : ''));
+    console.info('[notgrizy] watermark: \u00a9 ' + new Date().getFullYear() + ' ' + OWNER);
   }
 
   if (document.readyState === 'loading') {

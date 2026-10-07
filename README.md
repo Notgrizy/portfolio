@@ -73,6 +73,24 @@ JavaScript changes are needed. Note that `thumbnails/thumbnails.js` wins when it
 contains entries — if you mix the two, delete the generated file or clear its
 array and the manual cards take over.
 
+## Copyright watermark
+
+Every thumbnail carries a small `© <year> Notgrizy` mark in its bottom corner,
+on both the grid card and the lightbox preview.
+
+The mark is drawn in CSS (`assets/styles.css`), not burned into the image files.
+That keeps your Photoshop exports untouched, keeps the project dependency-free,
+and means the year updates on its own. `assets/main.js` sets a single
+`--watermark-text` custom property from `new Date().getFullYear()`, and the
+footer year comes from the same value, so the two can never disagree.
+
+To change the wording or move the mark, edit `.thumb-card__media::after` in
+`assets/styles.css`. To change the name, edit `OWNER` near the top of the
+copyright section in `assets/main.js`.
+
+`npm run scan` has nothing to do with this — it only writes the thumbnail list.
+See the note at the top of `tools/scan-thumbnails.mjs`.
+
 ## Changing the details
 
 | What | Where |
@@ -80,13 +98,16 @@ array and the manual cards take over.
 | Email address | `index.html` — the `mailto:` link and the contact meta list |
 | Discord handle | `index.html` — every `data-copy="notgrizy"` attribute |
 | Years of experience | `index.html` — `<span data-count="4">` in the first stat card |
+| Copyright year | automatic — `new Date().getFullYear()` in `assets/main.js` |
 | Bio / hero copy | `index.html` — `.hero__bio` |
 | Colours | `assets/styles.css` — the `:root` block at the top |
 | Section titles | `index.html` |
 
 The **Years of Experience** number animates from `0` to whatever is in
 `data-count`, and the thumbnail counters are always derived from the real
-number of cards, so you never have to update them by hand.
+number of cards, so you never have to update them by hand. The **copyright
+year** works the same way: it is read from the system clock, so it rolls over
+to the next year on its own.
 
 ## Contact links
 
