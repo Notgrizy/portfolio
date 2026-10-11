@@ -367,7 +367,7 @@ code, .mono {
   border-radius: 50%;
   border: 1px dashed rgba(103, 232, 249, 0.28);
   transform-origin: 50% 50%;
-  animation: spin 22s linear infinite;
+  animation: spin 12s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
